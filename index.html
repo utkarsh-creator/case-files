@@ -197,7 +197,7 @@ section{padding:110px 0;position:relative}
 .rbtn.alt{background:transparent;color:var(--ink)}
 .rbtn:hover{transform:translateY(-4px) rotate(-1deg);box-shadow:0 14px 30px rgba(0,0,0,.25)}
 .rbtn .sub{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;opacity:.7;margin-top:4px;font-weight:400}
-#copyStamp{position:fixed;z-index:2600;pointer-events:none;font-family:var(--type);font-size:22px;color:var(--green);border:4px solid var(--green);border-radius:8px;padding:.2em .7em;transform:rotate(-10deg) scale(2);opacity:0;background:rgba(242,234,216,.95)}
+#copyStamp{position:fixed;z-index:2600;pointer-events:none;font-family:var(--type);font-size:22px;color:var(--green);border:4px solid var(--green);border-radius:8px;padding:.2em .7em;transform:rotate(-10deg) scale(2);opacity:0;background:rgba(242,234,216,.95);transition:opacity .35s ease}
 #copyStamp.show{animation:slam .4s cubic-bezier(.2,2.2,.4,1) forwards}
 /* ---------- footer ---------- */
 footer{border-top:1px solid #2c251b;padding:34px 0;text-align:center;font-family:var(--mono);font-size:13px;color:#8a7f6a;overflow-x:clip}
@@ -942,6 +942,8 @@ emailBtn.addEventListener('click', function(){
     stampEl.classList.remove('show');
     void stampEl.offsetWidth;
     stampEl.classList.add('show');
+    clearTimeout(stampEl._hideT);
+    stampEl._hideT = setTimeout(function(){ stampEl.classList.remove('show'); }, 1400);
   }
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(EMAIL).then(done).catch(done);
